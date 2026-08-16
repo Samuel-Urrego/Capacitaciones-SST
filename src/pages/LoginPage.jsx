@@ -2,7 +2,14 @@ import { useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
 import { useAuth } from '../lib/auth'
-import { Button, Card, IconShield, Input } from '../components/ui'
+import {
+  Button,
+  Card,
+  IconEye,
+  IconEyeOff,
+  IconShield,
+  Input,
+} from '../components/ui'
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -12,6 +19,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState(null)
   const [message, setMessage] = useState(null)
   const [submitting, setSubmitting] = useState(false)
@@ -132,18 +140,33 @@ export default function LoginPage() {
             >
               Contraseña
             </label>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Mínimo 6 caracteres"
-              autoComplete={
-                mode === 'login' ? 'current-password' : 'new-password'
-              }
-              minLength={6}
-              required
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Mínimo 6 caracteres"
+                autoComplete={
+                  mode === 'login' ? 'current-password' : 'new-password'
+                }
+                minLength={6}
+                required
+                className="pr-12"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword((v) => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-white/60 transition hover:text-white"
+                aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              >
+                {showPassword ? (
+                  <IconEyeOff className="h-5 w-5" />
+                ) : (
+                  <IconEye className="h-5 w-5" />
+                )}
+              </button>
+            </div>
           </div>
 
           {error && (
