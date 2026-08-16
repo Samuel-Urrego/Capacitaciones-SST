@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+const LandingPage = lazy(() => import('./pages/LandingPage'))
 const LoginPage = lazy(() => import('./pages/LoginPage'))
 const CoursePage = lazy(() => import('./pages/CoursePage'))
 const QuizPage = lazy(() => import('./pages/QuizPage'))
@@ -20,7 +21,7 @@ function App() {
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
         <Routes>
-          <Route path="/" element={<Navigate to="/course" replace />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/course" element={<CoursePage />} />
           <Route path="/quiz" element={<QuizPage />} />
