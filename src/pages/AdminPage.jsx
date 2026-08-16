@@ -29,7 +29,7 @@ export default function AdminPage() {
               .select('*', { count: 'exact', head: true }),
             supabase
               .from('quiz_attempts')
-              .select('*, profiles(email, full_name)')
+              .select('*')
               .order('created_at', { ascending: false }),
             supabase
               .from('app_settings')
@@ -37,8 +37,29 @@ export default function AdminPage() {
               .eq('id', 1)
               .maybeSingle(),
           ])
+
+        // quiz_attempts.user_id apunta a auth.users, no a profiles:
+        // PostgREST no puede hacer join directo, así que unimos en JS
+        const ids = [
+          ...new Set((attemptsData || []).map((a) => a.user_id)),
+        ]
+        let usersMap = {}
+        if (ids.length > 0) {
+          const { data: profilesData } = await supabase
+            .from('profiles')
+            .select('id, email, full_name')
+            .in('id', ids)
+          usersMap = Object.fromEntries(
+            (profilesData || []).map((p) => [p.id, p]),
+          )
+        }
+        const attempts = (attemptsData || []).map((a) => ({
+          ...a,
+          profiles: usersMap[a.user_id] || null,
+        }))
+
         setUserCount(count ?? 0)
-        setAttempts(attemptsData || [])
+        setAttempts(attempts)
         const t = settings?.pass_threshold ?? 70
         setThreshold(t)
         setThresholdInput(String(t))
