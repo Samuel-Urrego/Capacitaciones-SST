@@ -28,11 +28,6 @@ export default function LandingPage() {
             </button>
           </div>
         )}
-        {user && (
-          <pre className="absolute left-2 top-2 z-50 rounded-lg border border-white/20 bg-black/40 px-3 py-2 text-[10px] text-white/80">
-            role: {profile?.role ?? 'null'} · uid: {user.id.slice(0, 8)}
-          </pre>
-        )}
       </header>
 
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-4 py-12">
