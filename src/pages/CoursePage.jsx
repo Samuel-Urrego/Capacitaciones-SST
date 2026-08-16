@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { init } from 'pptx-preview'
-import JSZip from 'jszip'
+import HTMLFlipBook from 'react-pageflip'
+import * as pdfjsLib from 'pdfjs-dist'
+import workerUrl from 'pdfjs-dist/build/pdf.worker.min.mjs?url'
 import {
   Button,
   Card,
@@ -13,16 +14,20 @@ import {
   IconVolume,
 } from '../components/ui'
 
-const PPT_URL = '/course.pptx'
+const PDF_URL = '/course.pdf'
+const RENDER_WIDTH = 1000
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = workerUrl
 
 export default function CoursePage() {
-  const wrapperRef = useRef(null)
-  const viewerRef = useRef(null)
+  const flipRef = useRef(null)
 
-  const [slideTexts, setSlideTexts] = useState([])
+  const [pages, setPages] = useState([])
   const [current, setCurrent] = useState(0)
   const [total, setTotal] = useState(0)
+  const [bookSize, setBookSize] = useState({ width: 900, height: 600 })
   const [loading, setLoading] = useState(true)
+  const [renderProgress, setRenderProgress] = useState(0)
   const [error, setError] = useState(null)
   const [autoplay, setAutoplay] = useState(true)
   const [speaking, setSpeaking] = useState(false)
@@ -44,55 +49,63 @@ export default function CoursePage() {
     setSpeaking(false)
   }, [])
 
-  const goTo = useCallback(
-    (index) => {
-      const viewer = viewerRef.current
-      if (!viewer) return
-      viewer.renderSingleSlide(index)
-      setCurrent(index)
-      if (autoplay) speakText(slideTexts[index])
+  const flipTo = useCallback(
+    (direction) => {
+      const flip = flipRef.current?.pageFlip?.()
+      if (!flip) return
+      if (direction > 0) flip.flipNext()
+      else flip.flipPrev()
     },
-    [autoplay, slideTexts, speakText],
+    [],
+  )
+
+  const handleFlip = useCallback(
+    (e) => {
+      const index = e.data
+      setCurrent(index)
+      if (autoplay) speakText(pages[index]?.text)
+    },
+    [autoplay, pages, speakText],
   )
 
   useEffect(() => {
     let cancelled = false
-    let viewer = null
 
     async function load() {
       try {
-        const res = await fetch(PPT_URL)
-        if (!res.ok) {
-          throw new Error(`No se pudo cargar el PowerPoint (HTTP ${res.status})`)
-        }
-        const buffer = await res.arrayBuffer()
-
-        // Extrae el texto de cada diapositiva para el audio por página
-        const zip = await JSZip.loadAsync(buffer)
-        const texts = []
-        const slideFiles = Object.keys(zip.files)
-          .filter((name) => /^ppt\/slides\/slide\d+\.xml$/.test(name))
-          .sort(
-            (a, b) =>
-              parseInt(a.match(/\d+/)[0], 10) - parseInt(b.match(/\d+/)[0], 10),
-          )
-        for (const name of slideFiles) {
-          const xml = await zip.file(name).async('text')
-          const text = [...xml.matchAll(/<a:t>([^<]*)<\/a:t>/g)]
-            .map((m) => m[1])
-            .join(' ')
-            .trim()
-          texts.push(text)
-        }
-        if (cancelled) return
-        setSlideTexts(texts)
-
-        viewer = init(wrapperRef.current, { width: 960, height: 540 })
-        viewerRef.current = viewer
-        await viewer.preview(buffer)
+        const pdf = await pdfjsLib.getDocument({ url: PDF_URL }).promise
         if (cancelled) return
 
-        setTotal(viewer.slideCount)
+        const items = []
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i)
+          const baseViewport = page.getViewport({ scale: 1 })
+          const scale = RENDER_WIDTH / baseViewport.width
+          const viewport = page.getViewport({ scale })
+
+          const canvas = document.createElement('canvas')
+          canvas.width = viewport.width
+          canvas.height = viewport.height
+          const ctx = canvas.getContext('2d')
+          await page.render({ canvasContext: ctx, viewport }).promise
+
+          const textContent = await page.getTextContent()
+          const text = textContent.items.map((item) => item.str).join(' ').trim()
+
+          items.push({ src: canvas.toDataURL('image/jpeg', 0.9), text })
+
+          if (i === 1) {
+            setBookSize({
+              width: 900,
+              height: Math.round(900 * (viewport.height / viewport.width)),
+            })
+          }
+          setRenderProgress(i)
+        }
+        if (cancelled) return
+
+        setPages(items)
+        setTotal(items.length)
         setCurrent(0)
         setLoading(false)
       } catch (err) {
@@ -108,12 +121,6 @@ export default function CoursePage() {
     return () => {
       cancelled = true
       stopAudio()
-      viewerRef.current = null
-      try {
-        viewer?.destroy?.()
-      } catch {
-        // wrapper may already be unmounted
-      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -141,20 +148,66 @@ export default function CoursePage() {
             <p className="mt-1 text-sm text-slate-500">{error}</p>
             <p className="mt-3 text-sm text-slate-400">
               Verificá que el archivo esté en{' '}
-              <code className="font-mono">public/course.pptx</code>.
+              <code className="font-mono">public/course.pdf</code> (exportado
+              desde PowerPoint: Archivo → Guardar como → PDF).
+            </p>
+          </Card>
+        ) : loading ? (
+          <Card className="mt-10 w-full max-w-md p-10 text-center">
+            <p className="text-lg font-semibold text-primary">
+              Preparando el libro…
+            </p>
+            <p className="mt-2 text-sm text-slate-500">
+              Renderizando página {renderProgress} de{' '}
+              {total || '…'} — un momentito
             </p>
           </Card>
         ) : (
           <>
             <Card className="w-full overflow-x-auto p-4">
-              <div ref={wrapperRef} className="mx-auto flex justify-center" />
+              <div className="mx-auto flex justify-center">
+                <HTMLFlipBook
+                  ref={flipRef}
+                  width={bookSize.width}
+                  height={bookSize.height}
+                  onFlip={handleFlip}
+                  showCover={false}
+                  mobileScrollSupport
+                  maxShadowOpacity={0.35}
+                  drawShadow
+                  flippingTime={450}
+                  style={{ backgroundColor: 'transparent' }}
+                >
+                  {pages.map((page, index) => (
+                    <div
+                      key={index}
+                      className="page"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        backgroundColor: '#ffffff',
+                        overflow: 'hidden',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <img
+                        src={page.src}
+                        alt={`Página ${index + 1}`}
+                        className="block h-full w-full object-contain"
+                      />
+                    </div>
+                  ))}
+                </HTMLFlipBook>
+              </div>
             </Card>
 
             <div className="mt-6 flex w-full items-center justify-between gap-4">
               <Button
                 variant="neutral"
-                onClick={() => goTo(Math.max(0, current - 1))}
-                disabled={loading || current === 0}
+                onClick={() => flipTo(-1)}
+                disabled={current === 0}
                 className="h-14 w-14 shrink-0 rounded-full p-0"
                 aria-label="Página anterior"
               >
@@ -164,13 +217,13 @@ export default function CoursePage() {
               <div className="flex flex-col items-center gap-3">
                 <div className="flex h-16 w-24 flex-col items-center justify-center rounded-2xl bg-surface shadow-neumorph-sm">
                   <span className="text-xl font-bold leading-none text-primary">
-                    {loading ? '…' : current + 1}
+                    {current + 1}
                   </span>
                   <span className="mt-1 text-[10px] uppercase tracking-widest text-slate-400">
-                    de {loading ? '…' : total}
+                    de {total}
                   </span>
                 </div>
-                {!loading && current === total - 1 && (
+                {current === total - 1 && (
                   <Link to="/quiz">
                     <Button className="px-5 py-2.5">
                       <IconCheck className="h-5 w-5" />
@@ -182,8 +235,8 @@ export default function CoursePage() {
 
               <Button
                 variant="primary"
-                onClick={() => goTo(Math.min(total - 1, current + 1))}
-                disabled={loading || current === total - 1}
+                onClick={() => flipTo(1)}
+                disabled={current === total - 1}
                 className="h-14 w-14 shrink-0 rounded-full p-0"
                 aria-label="Página siguiente"
               >
@@ -207,9 +260,9 @@ export default function CoursePage() {
               <Button
                 variant="neutral"
                 onClick={() =>
-                  speaking ? stopAudio() : speakText(slideTexts[current])
+                  speaking ? stopAudio() : speakText(pages[current]?.text)
                 }
-                disabled={loading || !slideTexts[current]}
+                disabled={!pages[current]?.text}
                 className="px-5 py-2.5"
               >
                 {speaking ? (

@@ -14,9 +14,11 @@
     "@tailwindcss/vite": "^4.3.3",
     "jquery": "^4.0.0",
     "jszip": "^3.10.1",
+    "pdfjs-dist": "^6.2.108",
     "pptx-preview": "^1.0.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-pageflip": "^2.0.3",
     "react-router-dom": "^7.18.2",
     "tailwindcss": "^4.3.3"
   },
