@@ -5,6 +5,7 @@ import { AuthProvider, useAuth } from './lib/auth'
 
 const LandingPage = lazy(() => import('./pages/LandingPage'))
 const LoginPage = lazy(() => import('./pages/LoginPage'))
+const ConfirmEmailPage = lazy(() => import('./pages/ConfirmEmailPage'))
 const CoursePage = lazy(() => import('./pages/CoursePage'))
 const QuizPage = lazy(() => import('./pages/QuizPage'))
 const ResultsPage = lazy(() => import('./pages/ResultsPage'))
@@ -42,6 +43,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/auth/confirm" element={<ConfirmEmailPage />} />
             <Route
               path="/course"
               element={
