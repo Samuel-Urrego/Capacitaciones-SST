@@ -3,7 +3,7 @@ import { Card, IconChevronRight, IconShield } from '../components/ui'
 import { useAuth } from '../lib/auth'
 
 export default function LandingPage() {
-  const { user, signOut } = useAuth()
+  const { user, profile, signOut } = useAuth()
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -64,13 +64,15 @@ export default function LandingPage() {
           </div>
         </Card>
 
-        <div className="mt-6">
-          <Link to="/login">
-            <div className="flex items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-150 hover:bg-white/25 active:scale-[0.98]">
-              Admin dashboard
-            </div>
-          </Link>
-        </div>
+        {(!profile || profile.role === 'admin') && (
+          <div className="mt-6">
+            <Link to="/admin">
+              <div className="flex items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-150 hover:bg-white/25 active:scale-[0.98]">
+                Admin dashboard
+              </div>
+            </Link>
+          </div>
+        )}
       </main>
 
       <footer className="mx-auto w-full max-w-4xl px-4 pb-6 text-center">
