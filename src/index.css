@@ -1,1 +1,21 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #8a04db;
+  --color-primary-dark: #6702a8;
+  --color-surface: #ede9f5;
+  --color-surface-soft: #f6f3fb;
+
+  --shadow-neumorph: 8px 8px 18px rgba(138, 4, 219, 0.16),
+    -8px -8px 18px rgba(255, 255, 255, 0.92);
+  --shadow-neumorph-sm: 4px 4px 10px rgba(138, 4, 219, 0.14),
+    -4px -4px 10px rgba(255, 255, 255, 0.9);
+  --shadow-neumorph-inset: inset 5px 5px 10px rgba(138, 4, 219, 0.16),
+    inset -5px -5px 10px rgba(255, 255, 255, 0.9);
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-slate-700);
+  min-height: 100vh;
+}

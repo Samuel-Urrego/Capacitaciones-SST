@@ -2,6 +2,16 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { init } from 'pptx-preview'
 import JSZip from 'jszip'
+import {
+  Button,
+  Card,
+  IconCheck,
+  IconChevronLeft,
+  IconChevronRight,
+  IconShield,
+  IconStop,
+  IconVolume,
+} from '../components/ui'
 
 const PPT_URL = '/course.pptx'
 
@@ -102,71 +112,87 @@ export default function CoursePage() {
       try {
         viewer?.destroy?.()
       } catch {
-        // wrapper puede ya no estar montado
+        // wrapper may already be unmounted
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-100">
-      <header className="border-b border-slate-200 bg-white px-6 py-4">
-        <h1 className="text-xl font-bold text-slate-800">Capacitación SST</h1>
+    <div className="flex min-h-screen flex-col bg-surface">
+      <header className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 pt-6">
+        <Card className="flex items-center gap-3 px-5 py-3">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-primary shadow-neumorph-sm">
+            <IconShield className="h-5 w-5" />
+          </span>
+          <h1 className="text-lg font-bold text-primary">Capacitación SST</h1>
+        </Card>
+        <span className="rounded-full bg-surface px-4 py-2 text-sm font-medium text-slate-500 shadow-neumorph-sm">
+          Inducción en SST
+        </span>
       </header>
 
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center px-4 py-6">
+      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center px-4 py-6">
         {error ? (
-          <div className="rounded-xl bg-red-50 p-6 text-center shadow">
-            <p className="font-semibold text-red-700">No se pudo abrir la capacitación</p>
-            <p className="mt-1 text-sm text-red-600">{error}</p>
-            <p className="mt-3 text-sm text-slate-600">
-              Verificá que el archivo esté en <code className="font-mono">public/course.pptx</code>.
+          <Card className="mt-10 w-full max-w-md p-8 text-center">
+            <p className="font-semibold text-primary">
+              No se pudo abrir la capacitación
             </p>
-          </div>
+            <p className="mt-1 text-sm text-slate-500">{error}</p>
+            <p className="mt-3 text-sm text-slate-400">
+              Verificá que el archivo esté en{' '}
+              <code className="font-mono">public/course.pptx</code>.
+            </p>
+          </Card>
         ) : (
           <>
-            <div className="w-full rounded-xl bg-white p-4 shadow">
+            <Card className="w-full overflow-x-auto p-4">
               <div ref={wrapperRef} className="mx-auto flex justify-center" />
-            </div>
+            </Card>
 
-            <div className="mt-4 flex w-full items-center justify-between gap-4">
-              <button
-                type="button"
+            <div className="mt-6 flex w-full items-center justify-between gap-4">
+              <Button
+                variant="neutral"
                 onClick={() => goTo(Math.max(0, current - 1))}
                 disabled={loading || current === 0}
-                className="rounded-lg bg-slate-800 px-4 py-2 font-medium text-white transition hover:bg-slate-700 disabled:opacity-40"
+                className="h-14 w-14 shrink-0 rounded-full p-0"
+                aria-label="Página anterior"
               >
-                Anterior
-              </button>
+                <IconChevronLeft className="h-6 w-6" />
+              </Button>
 
-              <div className="text-center">
-                <span className="text-sm font-medium text-slate-600">
-                  Página {loading ? '…' : current + 1} de {loading ? '…' : total}
-                </span>
+              <div className="flex flex-col items-center gap-3">
+                <div className="flex h-16 w-24 flex-col items-center justify-center rounded-2xl bg-surface shadow-neumorph-sm">
+                  <span className="text-xl font-bold leading-none text-primary">
+                    {loading ? '…' : current + 1}
+                  </span>
+                  <span className="mt-1 text-[10px] uppercase tracking-widest text-slate-400">
+                    de {loading ? '…' : total}
+                  </span>
+                </div>
                 {!loading && current === total - 1 && (
-                  <div className="mt-2">
-                    <Link
-                      to="/quiz"
-                      className="rounded-lg bg-emerald-600 px-5 py-2.5 font-semibold text-white transition hover:bg-emerald-500"
-                    >
-                      Ir al quiz →
-                    </Link>
-                  </div>
+                  <Link to="/quiz">
+                    <Button className="px-5 py-2.5">
+                      <IconCheck className="h-5 w-5" />
+                      Ir al quiz
+                    </Button>
+                  </Link>
                 )}
               </div>
 
-              <button
-                type="button"
+              <Button
+                variant="primary"
                 onClick={() => goTo(Math.min(total - 1, current + 1))}
                 disabled={loading || current === total - 1}
-                className="rounded-lg bg-slate-800 px-4 py-2 font-medium text-white transition hover:bg-slate-700 disabled:opacity-40"
+                className="h-14 w-14 shrink-0 rounded-full p-0"
+                aria-label="Página siguiente"
               >
-                Siguiente
-              </button>
+                <IconChevronRight className="h-6 w-6" />
+              </Button>
             </div>
 
-            <div className="mt-4 flex flex-wrap items-center justify-center gap-4">
-              <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-700">
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+              <label className="flex cursor-pointer items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-medium text-slate-600 shadow-neumorph-sm transition hover:text-primary">
                 <input
                   type="checkbox"
                   checked={autoplay}
@@ -174,20 +200,25 @@ export default function CoursePage() {
                     setAutoplay(e.target.checked)
                     if (!e.target.checked) stopAudio()
                   }}
-                  className="h-4 w-4"
+                  className="h-4 w-4 accent-primary"
                 />
                 Leer página automáticamente
               </label>
-              <button
-                type="button"
+              <Button
+                variant="neutral"
                 onClick={() =>
                   speaking ? stopAudio() : speakText(slideTexts[current])
                 }
                 disabled={loading || !slideTexts[current]}
-                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:opacity-40"
+                className="px-5 py-2.5"
               >
+                {speaking ? (
+                  <IconStop className="h-5 w-5" />
+                ) : (
+                  <IconVolume className="h-5 w-5" />
+                )}
                 {speaking ? 'Detener audio' : 'Leer esta página'}
-              </button>
+              </Button>
             </div>
           </>
         )}
