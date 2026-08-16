@@ -1,0 +1,81 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Según la Ley 1562 de 2012, ¿qué es un accidente de trabajo?",
+      "options": [
+        "Un suceso repentino que sobreviene por causa o con ocasión del trabajo y que produce una lesión",
+        "Una enfermedad que se desarrolla lentamente por las condiciones laborales",
+        "Un problema de salud personal del trabajador",
+        "Un accidente que ocurre fuera del horario laboral"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 2,
+      "question": "¿Qué es una enfermedad laboral?",
+      "options": [
+        "La que se contrae por exposición a factores de riesgo inherentes a la actividad laboral",
+        "Una enfermedad que se hereda de la familia",
+        "Un resfriado común adquirido en el trabajo",
+        "Una enfermedad que no tiene relación con el trabajo"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 3,
+      "question": "¿Cómo se define un incidente?",
+      "options": [
+        "Un suceso repentino no deseado que ocurre por las mismas causas que un accidente pero no produce lesión",
+        "Una lesión grave que requiere hospitalización",
+        "Un accidente que ocurre en el trayecto de la casa al trabajo",
+        "Una sanción impuesta por la empresa"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 4,
+      "question": "¿Qué es un acto inseguro?",
+      "options": [
+        "Toda acción o decisión humana que puede causar un accidente",
+        "Una condición peligrosa de la máquina",
+        "Un elemento de protección personal en mal estado",
+        "La falta de señalización en el lugar de trabajo"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 5,
+      "question": "¿Qué es un peligro?",
+      "options": [
+        "Fuente, situación o acto con potencial de generar daño en términos de lesión o enfermedad",
+        "Un accidente que ya ocurrió",
+        "Una sanción de la ARL",
+        "Una recomendación de la política de SST"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 6,
+      "question": "Según la política SST de OBRAIN S.A.S., la empresa se compromete a:",
+      "options": [
+        "Identificar los peligros, evaluarlos y gestionarlos",
+        "Evitar hacer evaluaciones médicas",
+        "Reducir los elementos de protección personal",
+        "No reportar accidentes de trabajo"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": 7,
+      "question": "¿Qué debe hacer el trabajador al identificar un peligro o riesgo inminente?",
+      "options": [
+        "Reportarlo de inmediato",
+        "Esperar a que ocurra un accidente",
+        "Continuar trabajando sin avisar",
+        "Anotarlo en su agenda personal"
+      ],
+      "correctIndex": 0
+    }
+  ]
+}
