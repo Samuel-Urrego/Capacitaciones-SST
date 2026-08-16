@@ -22,7 +22,7 @@ export default function LandingPage() {
           <h2 className="text-2xl font-bold text-white sm:text-3xl">
             Sandra Milena Valencia Quivano
           </h2>
-          <p className="mt-2 text-base font-medium text-purple-100 sm:text-lg">
+          <p className="mt-2 text-base font-medium text-sky-100 sm:text-lg">
             Inducción en Seguridad y Salud en el Trabajo
           </p>
           <p className="mx-auto mt-3 max-w-md text-sm text-white/70">
@@ -33,7 +33,7 @@ export default function LandingPage() {
           <div className="mt-10">
             <Link to="/course">
               <div className="group flex flex-col items-center justify-center rounded-3xl border border-white/25 bg-white/10 p-8 text-center backdrop-blur-xl transition-all duration-150 hover:bg-white/20">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-primary shadow-lg shadow-purple-950/30 transition group-hover:scale-105">
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-primary-dark shadow-lg shadow-blue-950/30 transition group-hover:scale-105">
                   <IconChevronRight className="h-6 w-6" />
                 </span>
                 <p className="mt-4 text-lg font-bold text-white">
@@ -46,6 +46,14 @@ export default function LandingPage() {
             </Link>
           </div>
         </Card>
+
+        <div className="mt-6">
+          <Link to="/login">
+            <div className="flex items-center justify-center gap-2 rounded-2xl border border-white/30 bg-white/15 px-6 py-3 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-150 hover:bg-white/25 active:scale-[0.98]">
+              Admin dashboard
+            </div>
+          </Link>
+        </div>
       </main>
 
       <footer className="mx-auto w-full max-w-4xl px-4 pb-6 text-center">

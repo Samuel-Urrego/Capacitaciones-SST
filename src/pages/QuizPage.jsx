@@ -113,7 +113,7 @@ export default function QuizPage() {
                       onClick={() => selectOption(optionIndex)}
                       className={`flex w-full items-center gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-150 ${
                         isSelected
-                          ? 'border-white/60 bg-white text-primary shadow-lg shadow-purple-950/30'
+                          ? 'border-white/60 bg-white text-primary-dark shadow-lg shadow-blue-950/30'
                           : 'border-white/25 bg-white/10 text-white/80 backdrop-blur-xl hover:bg-white/20 hover:text-white'
                       }`}
                     >
@@ -133,26 +133,41 @@ export default function QuizPage() {
               </div>
             </Card>
 
-            <div className="mt-6 flex items-center justify-between gap-4">
-              <Button
-                variant="neutral"
-                onClick={goPrev}
-                disabled={index === 0}
-                className="px-6 py-3"
-              >
-                <IconChevronLeft className="h-5 w-5" />
-                Anterior
-              </Button>
+            <div className="mt-6">
+              <div className="flex items-center justify-between gap-4">
+                <Button
+                  variant="neutral"
+                  onClick={goPrev}
+                  disabled={index === 0}
+                  className="px-6 py-3"
+                >
+                  <IconChevronLeft className="h-5 w-5" />
+                  Anterior
+                </Button>
 
-              {index === questions.length - 1 ? (
-                <Button onClick={finish} className="px-8 py-3">
-                  Ver resultado
-                </Button>
-              ) : (
-                <Button onClick={goNext} className="px-8 py-3">
-                  Siguiente
-                  <IconChevronRight className="h-5 w-5" />
-                </Button>
+                {index === questions.length - 1 ? (
+                  <Button
+                    onClick={finish}
+                    disabled={selected === null}
+                    className="px-8 py-3"
+                  >
+                    Ver resultado
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={goNext}
+                    disabled={selected === null}
+                    className="px-8 py-3"
+                  >
+                    Siguiente
+                    <IconChevronRight className="h-5 w-5" />
+                  </Button>
+                )}
+              </div>
+              {selected === null && (
+                <p className="mt-4 text-center text-sm text-white/60">
+                  Elegí una opción para poder continuar
+                </p>
               )}
             </div>
           </>
