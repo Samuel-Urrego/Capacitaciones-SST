@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { jsPDF } from 'jspdf'
+import { autoTable } from 'jspdf-autotable'
 import { supabase } from '../lib/supabaseClient'
 import {
   Button,
@@ -118,6 +120,46 @@ export default function AdminPage() {
     }
   }
 
+  const exportPdf = useCallback(() => {
+    const doc = new jsPDF()
+    doc.setFontSize(16)
+    doc.setTextColor(3, 105, 161)
+    doc.text('Capacitaciones SST', 14, 16)
+    doc.setFontSize(11)
+    doc.setTextColor(60, 60, 60)
+    doc.text('Reporte de intentos del quiz', 14, 24)
+    doc.setFontSize(9)
+    doc.setTextColor(120, 120, 120)
+    doc.text(
+      `Generado: ${new Date().toLocaleString('es-AR', {
+        dateStyle: 'short',
+        timeStyle: 'short',
+      })}`,
+      14,
+      30,
+    )
+
+    autoTable(doc, {
+      startY: 36,
+      head: [['Usuario', 'Correo', 'Fecha', 'Puntaje', 'Resultado']],
+      body: attempts.map((a) => [
+        a.profiles?.full_name || '—',
+        a.profiles?.email || '—',
+        new Date(a.created_at).toLocaleString('es-AR', {
+          dateStyle: 'short',
+          timeStyle: 'short',
+        }),
+        `${a.score}/${a.total} (${a.percent}%)`,
+        a.passed ? 'Aprobado' : 'No aprobado',
+      ]),
+      styles: { fontSize: 9 },
+      headStyles: { fillColor: [14, 165, 233] },
+      alternateRowStyles: { fillColor: [240, 249, 255] },
+    })
+
+    doc.save('reporte-intentos.pdf')
+  }, [attempts])
+
   const optionLetter = (index) => String.fromCharCode(65 + index)
 
   return (
@@ -197,7 +239,14 @@ export default function AdminPage() {
         </Card>
 
         <Card className="mt-8 overflow-hidden p-6">
-          <h2 className="mb-4 font-bold text-white">Intentos por usuario</h2>
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <h2 className="font-bold text-white">Intentos por usuario</h2>
+            {attemptCount > 0 && (
+              <Button onClick={exportPdf} className="px-5 py-2.5 text-sm">
+                Exportar PDF
+              </Button>
+            )}
+          </div>
           {attemptCount === 0 ? (
             <p className="py-6 text-center text-sm text-white/50">
               Todavía no hay intentos registrados.
