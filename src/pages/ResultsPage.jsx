@@ -1,5 +1,5 @@
-import { useLocation } from 'react-router-dom'
-import { Card, IconCheck, IconShield } from '../components/ui'
+import { Link, useLocation } from 'react-router-dom'
+import { Button, Card, IconCheck, IconShield } from '../components/ui'
 
 export default function ResultsPage() {
   const location = useLocation()
@@ -72,6 +72,12 @@ export default function ResultsPage() {
           <p className="mt-2 text-xs text-white/50">
             Mínimo para aprobar: {threshold}%
           </p>
+
+          <Link to="/" className="mt-8 block">
+            <Button variant="neutral" className="w-full py-3 text-base">
+              Volver al inicio
+            </Button>
+          </Link>
         </Card>
       </main>
     </div>

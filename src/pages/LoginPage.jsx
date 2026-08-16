@@ -35,12 +35,20 @@ export default function LoginPage() {
     setSubmitting(true)
     try {
       if (mode === 'login') {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email,
           password,
         })
         if (error) throw error
-        navigate('/course', { replace: true })
+        // Si es admin, va directo al panel; si no, al curso
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('role')
+          .eq('id', data.user.id)
+          .maybeSingle()
+        navigate(profile?.role === 'admin' ? '/admin' : '/course', {
+          replace: true,
+        })
       } else {
         const { error } = await supabase.auth.signUp({
           email,
