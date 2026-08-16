@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import GlassBackground from './components/GlassBackground'
+import { AuthProvider, useAuth } from './lib/auth'
 
 const LandingPage = lazy(() => import('./pages/LandingPage'))
 const LoginPage = lazy(() => import('./pages/LoginPage'))
@@ -17,20 +18,65 @@ function Loading() {
   )
 }
 
+function RequireAuth({ children }) {
+  const { user, loading } = useAuth()
+  if (loading) return <Loading />
+  if (!user) return <Navigate to="/login" replace />
+  return children
+}
+
+function RequireAdmin({ children }) {
+  const { user, profile, loading } = useAuth()
+  if (loading) return <Loading />
+  if (!user) return <Navigate to="/login" replace />
+  if (!profile || profile.role !== 'admin') return <Navigate to="/course" replace />
+  return children
+}
+
 function App() {
   return (
     <BrowserRouter>
-      <GlassBackground />
-      <Suspense fallback={<Loading />}>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/course" element={<CoursePage />} />
-          <Route path="/quiz" element={<QuizPage />} />
-          <Route path="/results" element={<ResultsPage />} />
-          <Route path="/admin" element={<AdminPage />} />
-        </Routes>
-      </Suspense>
+      <AuthProvider>
+        <GlassBackground />
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/course"
+              element={
+                <RequireAuth>
+                  <CoursePage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/quiz"
+              element={
+                <RequireAuth>
+                  <QuizPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/results"
+              element={
+                <RequireAuth>
+                  <ResultsPage />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <RequireAdmin>
+                  <AdminPage />
+                </RequireAdmin>
+              }
+            />
+          </Routes>
+        </Suspense>
+      </AuthProvider>
     </BrowserRouter>
   )
 }

@@ -1,16 +1,33 @@
 import { Link } from 'react-router-dom'
 import { Card, IconChevronRight, IconShield } from '../components/ui'
+import { useAuth } from '../lib/auth'
 
 export default function LandingPage() {
+  const { user, signOut } = useAuth()
+
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="mx-auto flex w-full max-w-4xl items-center justify-between px-4 pt-6">
+      <header className="mx-auto flex w-full max-w-4xl items-center justify-between gap-4 px-4 pt-6">
         <div className="flex items-center gap-3">
           <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur-xl">
             <IconShield className="h-5 w-5" />
           </span>
           <h1 className="text-lg font-bold text-white">Capacitaciones SST</h1>
         </div>
+        {user && (
+          <div className="flex items-center gap-3">
+            <span className="max-w-[200px] truncate rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm text-white/80 backdrop-blur-xl">
+              {user.email}
+            </span>
+            <button
+              type="button"
+              onClick={signOut}
+              className="rounded-full border border-white/30 bg-white/15 px-4 py-2 text-sm font-medium text-white backdrop-blur-xl transition hover:bg-white/25"
+            >
+              Salir
+            </button>
+          </div>
+        )}
       </header>
 
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-4 py-12">
