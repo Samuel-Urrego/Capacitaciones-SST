@@ -2,80 +2,223 @@
   "questions": [
     {
       "id": 1,
-      "question": "Según la Ley 1562 de 2012, ¿qué es un accidente de trabajo?",
+      "question": "Un ingeniero se encuentra ejecutando una actividad por orden directa del contratante fuera del lugar y horario habitual de trabajo. Durante dicha actividad sufre una lesión. Según la definición presentada en la capacitación, ¿cuál es la clasificación más adecuada?",
       "options": [
-        "Un suceso repentino que sobreviene por causa o con ocasión del trabajo y que produce una lesión",
-        "Una enfermedad que se desarrolla lentamente por las condiciones laborales",
-        "Un problema de salud personal del trabajador",
-        "Un accidente que ocurre fuera del horario laboral"
+        "No constituye accidente de trabajo porque ocurrió fuera del lugar y horario habitual",
+        "Constituye accidente de trabajo porque ocurrió durante la ejecución de una orden bajo autoridad del empleador o contratante",
+        "Solo constituye accidente de trabajo si la actividad estaba incluida previamente en el contrato",
+        "Debe clasificarse como incidente porque ocurrió fuera de las instalaciones"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 2,
-      "question": "¿Qué es una enfermedad laboral?",
+      "question": "Un contratista sufre una lesión mientras se desplaza desde su residencia hacia el lugar de trabajo en un vehículo particular que él mismo decidió utilizar. A partir exclusivamente de los criterios expuestos en la capacitación, ¿qué elemento resulta determinante para considerar el evento como accidente de trabajo?",
       "options": [
-        "La que se contrae por exposición a factores de riesgo inherentes a la actividad laboral",
-        "Una enfermedad que se hereda de la familia",
-        "Un resfriado común adquirido en el trabajo",
-        "Una enfermedad que no tiene relación con el trabajo"
+        "Que el desplazamiento haya ocurrido dentro del horario laboral",
+        "Que el trabajador haya informado previamente la ruta al responsable del SG-SST",
+        "Que el transporte haya sido suministrado por el empleador",
+        "Que el trabajador estuviera afiliado a una ARL"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 3,
-      "question": "¿Cómo se define un incidente?",
+      "question": "Durante una actividad de integración organizada por la empresa, un contratista sufre una lesión. La actividad era recreativa y se desarrollaba por cuenta y en representación de la organización. ¿Cuál es la interpretación correcta según la capacitación?",
       "options": [
-        "Un suceso repentino no deseado que ocurre por las mismas causas que un accidente pero no produce lesión",
-        "Una lesión grave que requiere hospitalización",
-        "Un accidente que ocurre en el trayecto de la casa al trabajo",
-        "Una sanción impuesta por la empresa"
+        "Nunca puede considerarse accidente de trabajo porque las actividades recreativas están excluidas",
+        "Puede considerarse accidente de trabajo al tratarse de una actividad recreativa realizada por cuenta o representación del empleador",
+        "Solo sería accidente de trabajo si ocurre dentro de las instalaciones de la empresa",
+        "Debe clasificarse obligatoriamente como enfermedad laboral"
       ],
-      "correctIndex": 0
+      "correctIndex": 1
     },
     {
       "id": 4,
-      "question": "¿Qué es un acto inseguro?",
+      "question": "Se presenta una situación en la que una herramienta defectuosa cae desde una estructura, pero no lesiona a ninguna persona, no ocasiona daños materiales y no afecta el proceso. ¿Cuál es la interpretación más precisa según la definición de incidente de la capacitación?",
       "options": [
-        "Toda acción o decisión humana que puede causar un accidente",
-        "Una condición peligrosa de la máquina",
-        "Un elemento de protección personal en mal estado",
-        "La falta de señalización en el lugar de trabajo"
+        "No existe ningún evento de SST porque no hubo consecuencias",
+        "Es una condición insegura exclusivamente",
+        "Es un incidente, pues ocurrió un suceso no deseado que pudo desencadenar consecuencias, pero por azar no las produjo",
+        "Es un accidente de trabajo sin lesión"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 5,
-      "question": "¿Qué es un peligro?",
+      "question": "Un ingeniero decide retirar deliberadamente una protección de seguridad de una máquina para acelerar una tarea. La máquina permanece en condiciones normales de funcionamiento, pero la decisión incrementa la posibilidad de un evento no deseado. ¿Cómo debe clasificarse principalmente la conducta descrita?",
       "options": [
-        "Fuente, situación o acto con potencial de generar daño en términos de lesión o enfermedad",
-        "Un accidente que ya ocurrió",
-        "Una sanción de la ARL",
-        "Una recomendación de la política de SST"
+        "Peligro, porque toda máquina constituye una fuente de daño",
+        "Condición insegura, porque el equipo está relacionado con la situación",
+        "Acto inseguro, porque corresponde a una acción o decisión humana capaz de generar una situación insegura o un incidente",
+        "Riesgo, porque ya existe una consecuencia material"
       ],
-      "correctIndex": 0
+      "correctIndex": 2
     },
     {
       "id": 6,
-      "question": "Según la política SST de OBRAIN S.A.S., la empresa se compromete a:",
+      "question": "En una inspección se identifica que un equipo presenta un defecto físico y que, adicionalmente, un trabajador decide operarlo ignorando las instrucciones de seguridad. ¿Cuál de las siguientes relaciones conceptuales representa correctamente la situación?",
       "options": [
-        "Identificar los peligros, evaluarlos y gestionarlos",
-        "Evitar hacer evaluaciones médicas",
-        "Reducir los elementos de protección personal",
-        "No reportar accidentes de trabajo"
+        "El defecto del equipo es un acto inseguro y la decisión del trabajador es una condición insegura",
+        "El defecto del equipo corresponde a una condición insegura y la decisión del trabajador corresponde a un acto inseguro",
+        "Ambos elementos corresponden exclusivamente a riesgos",
+        "Ambos elementos corresponden exclusivamente a peligros"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 7,
+      "question": "Un ingeniero identifica una fuente con potencial de producir lesiones, pero no existe evidencia de que el evento vaya a ocurrir ni de la magnitud de sus consecuencias. ¿Qué concepto describe específicamente la fuente identificada, sin incorporar todavía probabilidad ni severidad?",
+      "options": [
+        "Accidente",
+        "Riesgo",
+        "Peligro",
+        "Incidente"
+      ],
+      "correctIndex": 2
+    },
+    {
+      "id": 8,
+      "question": "Dos situaciones presentan exactamente el mismo peligro. En la primera, la exposición es poco frecuente y las consecuencias potenciales son menores. En la segunda, la exposición es frecuente y las consecuencias potenciales son graves. Según las definiciones de la capacitación, ¿qué concepto permite diferenciar ambas situaciones?",
+      "options": [
+        "Peligro, porque incorpora directamente la frecuencia de exposición",
+        "Riesgo, porque combina la probabilidad de ocurrencia o exposición con la severidad de la lesión o enfermedad potencial",
+        "Incidente, porque permite cuantificar las consecuencias",
+        "Acto inseguro, porque toda variación en exposición depende de una decisión humana"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 9,
+      "question": "Un trabajador presencia un incidente que no produjo lesión. Decide no reportarlo porque considera que, al no existir afectación física, no existe obligación de informar. ¿Cuál es la respuesta más consistente con la capacitación?",
+      "options": [
+        "Es correcto, porque los incidentes solo se investigan cuando existe una lesión",
+        "Es incorrecto, porque los incidentes deben reportarse internamente máximo dentro de los dos días hábiles siguientes al suceso",
+        "Es correcto si el trabajador informa verbalmente al finalizar el mes",
+        "Es incorrecto únicamente cuando el incidente ocasiona daños materiales"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 10,
+      "question": "Un accidente laboral ocurre un lunes y el trabajador informa a la profesional de SST el miércoles siguiente. Considerando el plazo indicado en la capacitación, ¿qué afirmación es correcta?",
+      "options": [
+        "El reporte necesariamente está fuera de plazo porque deben transcurrir máximo 24 horas",
+        "El reporte puede encontrarse dentro del plazo de dos días hábiles, dependiendo del momento exacto de ocurrencia y reporte",
+        "El plazo siempre corresponde a dos días calendario, independientemente de los días hábiles",
+        "El accidente solo debe reportarse cuando la lesión requiera hospitalización"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 11,
+      "question": "Ocurre un accidente clasificado como grave o mortal. Además del reporte correspondiente a la ARL y EPS, ¿qué obligación adicional establece la capacitación respecto del plazo?",
+      "options": [
+        "Debe reportarse a la Dirección Territorial u Oficinas Especiales correspondientes dentro de los dos días hábiles siguientes al evento",
+        "Debe reportarse únicamente al COPASST dentro de los cinco días calendario siguientes",
+        "Debe reportarse exclusivamente al contratante dentro de las siguientes 24 horas",
+        "Debe reportarse a la Dirección Territorial solamente si existe daño material"
       ],
       "correctIndex": 0
     },
     {
-      "id": 7,
-      "question": "¿Qué debe hacer el trabajador al identificar un peligro o riesgo inminente?",
+      "id": 12,
+      "question": "Un contratista identifica un riesgo inminente en una obra y decide reportarlo mediante correo. Según las instrucciones específicas de la capacitación, ¿cuál conjunto de información maximiza la calidad del reporte?",
       "options": [
-        "Reportarlo de inmediato",
-        "Esperar a que ocurra un accidente",
-        "Continuar trabajando sin avisar",
-        "Anotarlo en su agenda personal"
+        "Únicamente el nombre del trabajador y la fecha del reporte",
+        "Una fotografía, descripción de la situación, nombre de la obra y lugar específico donde fue identificada",
+        "Solo una descripción verbal comunicada a otro contratista",
+        "Únicamente el número de identificación del trabajador y el nombre del contratante"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 13,
+      "question": "¿Cuál de las siguientes situaciones refleja mejor el propósito preventivo que la capacitación atribuye a la investigación de incidentes?",
+      "options": [
+        "Investigar únicamente eventos que hayan producido incapacidad médica",
+        "Utilizar los incidentes como alertas para identificar y controlar causas básicas antes de que ocurra un accidente",
+        "Investigar incidentes exclusivamente para determinar responsabilidades disciplinarias",
+        "Investigar solo los incidentes que ocasionen daños a la propiedad"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 14,
+      "question": "Un contratista argumenta que, al estar vinculado mediante prestación de servicios, no está incluido dentro del alcance del SG-SST de OBRAIN S.A.S. ¿Cuál afirmación contradice directamente ese argumento?",
+      "options": [
+        "La política aplica únicamente a trabajadores con contrato laboral",
+        "La política contempla expresamente la inclusión de contratistas y, cuando aplique, subcontratistas",
+        "Los contratistas únicamente están incluidos cuando pertenecen al COPASST",
+        "Los contratistas están incluidos únicamente durante actividades realizadas dentro de las oficinas administrativas"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 15,
+      "question": "De acuerdo con la política SST presentada, ¿cuál de las siguientes combinaciones representa correctamente compromisos asumidos por OBRAIN S.A.S.?",
+      "options": [
+        "Identificar peligros, valorar riesgos, establecer controles y asignar recursos humanos, técnicos, tecnológicos y financieros",
+        "Delegar completamente la gestión del SG-SST a los contratistas y eliminar la obligación de seguimiento",
+        "Limitar la gestión a la entrega de EPP y excluir la evaluación de riesgos",
+        "Realizar actividades de SST únicamente cuando ocurra un accidente"
       ],
       "correctIndex": 0
+    },
+    {
+      "id": 16,
+      "question": "Un trabajador conoce la política SST, pero decide no informar una condición peligrosa porque considera que la responsabilidad de identificar riesgos corresponde exclusivamente al responsable del SG-SST. ¿Cuál obligación del trabajador contradice directamente esta decisión?",
+      "options": [
+        "El trabajador únicamente debe asistir a las evaluaciones médicas",
+        "El trabajador debe participar en la prevención e informar inmediatamente peligros, riesgos, condiciones peligrosas y actos inseguros",
+        "El trabajador solo debe reportar situaciones que hayan producido lesiones",
+        "El trabajador debe informar únicamente cuando reciba autorización previa"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 17,
+      "question": "Un contratista recibe la citación para una evaluación médica periódica y argumenta que no necesita asistir porque no presenta síntomas. ¿Cuál es la justificación de la evaluación periódica según la capacitación?",
+      "options": [
+        "Su finalidad exclusiva es determinar si el trabajador puede conservar el contrato",
+        "Busca monitorear la exposición a factores de riesgo e identificar precozmente posibles alteraciones temporales, permanentes o agravadas relacionadas con la labor o el ambiente de trabajo",
+        "Solo se realiza cuando el trabajador reporta previamente una enfermedad",
+        "Se realiza únicamente para establecer qué elementos de protección personal debe comprar el trabajador"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 18,
+      "question": "Un trabajador independiente afirma que OBRAIN debe adquirir obligatoriamente todos sus EPP porque la política SST incluye a los contratistas. Según el contenido específico de la capacitación sobre EPP, ¿cuál es la respuesta correcta?",
+      "options": [
+        "Siempre es obligación del contratante adquirir todos los EPP de cualquier contratista",
+        "El trabajador independiente es responsable de adquirir, utilizar y mantener adecuadamente sus propios EPP según los riesgos asociados a su actividad",
+        "Los EPP solo son responsabilidad de la ARL",
+        "El trabajador independiente no tiene ninguna responsabilidad sobre los EPP"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 19,
+      "question": "Un trabajador independiente propone ser representante de los trabajadores ante el COPASST argumentando que participa diariamente en las actividades de la empresa y conoce sus riesgos. Según la capacitación, ¿por qué esta propuesta no procede?",
+      "options": [
+        "Porque únicamente los ingenieros pueden participar en el COPASST",
+        "Porque el COPASST exige representantes de trabajadores vinculados mediante una relación laboral directa, mientras que el independiente no tiene una relación laboral subordinada con la empresa",
+        "Porque los contratistas tienen prohibido participar en cualquier actividad relacionada con SST",
+        "Porque el COPASST solo puede estar conformado por representantes del empleador"
+      ],
+      "correctIndex": 1
+    },
+    {
+      "id": 20,
+      "question": "Un trabajador independiente plantea una situación equivalente respecto al Comité de Convivencia Laboral y sostiene que debería poder representar a los trabajadores debido a que presta servicios permanentemente a la organización. Según la capacitación, ¿cuál es la razón normativa y técnica que impide su participación como representante?",
+      "options": [
+        "La permanencia del contrato de prestación de servicios convierte automáticamente al contratista en trabajador dependiente",
+        "La integración del comité contempla representantes del empleador y de los trabajadores vinculados mediante contrato laboral; el independiente no tiene una relación de subordinación y dependencia laboral con la empresa",
+        "Los trabajadores independientes únicamente pueden participar después de cinco años de vinculación",
+        "El Comité de Convivencia Laboral solo puede estar integrado por miembros del área de Seguridad y Salud en el Trabajo"
+      ],
+      "correctIndex": 1
     }
   ]
 }
