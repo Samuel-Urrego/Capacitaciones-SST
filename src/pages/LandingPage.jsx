@@ -14,7 +14,7 @@ export default function LandingPage() {
       </header>
 
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col items-center justify-center px-4 py-12">
-        <Card className="w-full p-10 text-center sm:p-14">
+        <Card className="w-full max-w-lg p-10 text-center sm:p-14">
           <span className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-surface text-primary shadow-neumorph">
             <IconShield className="h-12 w-12" />
           </span>
@@ -30,9 +30,9 @@ export default function LandingPage() {
             para obtener tu certificación.
           </p>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="mt-10">
             <Link to="/course">
-              <div className="group flex h-full flex-col items-center justify-center rounded-3xl bg-surface p-8 text-center shadow-neumorph transition-all duration-150 hover:shadow-neumorph-inset">
+              <div className="group flex flex-col items-center justify-center rounded-3xl bg-surface p-8 text-center shadow-neumorph transition-all duration-150 hover:shadow-neumorph-inset">
                 <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-neumorph-sm transition group-hover:shadow-neumorph-inset">
                   <IconChevronRight className="h-6 w-6" />
                 </span>
@@ -40,19 +40,7 @@ export default function LandingPage() {
                   Comenzar capacitación
                 </p>
                 <p className="mt-1 text-sm text-slate-500">
-                  Leé el material página por página
-                </p>
-              </div>
-            </Link>
-
-            <Link to="/quiz">
-              <div className="group flex h-full flex-col items-center justify-center rounded-3xl bg-surface p-8 text-center shadow-neumorph transition-all duration-150 hover:shadow-neumorph-inset">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-surface text-primary shadow-neumorph-sm transition group-hover:shadow-neumorph-inset">
-                  <IconShield className="h-6 w-6" />
-                </span>
-                <p className="mt-4 text-lg font-bold text-primary">Ir al quiz</p>
-                <p className="mt-1 text-sm text-slate-500">
-                  Respondé las preguntas de la capacitación
+                  Leé el material página por página y después hacé el quiz
                 </p>
               </div>
             </Link>

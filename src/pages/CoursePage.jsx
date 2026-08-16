@@ -63,6 +63,9 @@ export default function CoursePage() {
     (e) => {
       const index = e.data
       setCurrent(index)
+      if (index === pages.length - 1) {
+        localStorage.setItem('course_completed', 'true')
+      }
       if (autoplay) speakText(pages[index]?.text)
     },
     [autoplay, pages, speakText],

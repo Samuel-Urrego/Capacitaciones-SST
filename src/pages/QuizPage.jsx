@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { Button, Card, IconChevronLeft, IconChevronRight, IconShield } from '../components/ui'
 
 const QUESTIONS_URL = '/questions.json'
@@ -14,7 +14,10 @@ export default function QuizPage() {
   const [answers, setAnswers] = useState([])
   const [selected, setSelected] = useState(null)
 
+  const courseCompleted = localStorage.getItem('course_completed') === 'true'
+
   useEffect(() => {
+    if (!courseCompleted) return
     fetch(QUESTIONS_URL)
       .then((res) => {
         if (!res.ok) throw new Error(`No se pudo cargar el quiz (HTTP ${res.status})`)
@@ -97,7 +100,11 @@ export default function QuizPage() {
               <div className="mt-6 space-y-3">
                 {question.options.map((option, optionIndex) => {
                   const isSelected = selected === optionIndex
-                  return (
+  if (!courseCompleted) {
+    return <Navigate to="/course" replace />
+  }
+
+  return (
                     <button
                       key={optionIndex}
                       type="button"
