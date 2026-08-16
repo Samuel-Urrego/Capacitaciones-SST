@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { supabase } from '../lib/supabaseClient'
 import {
   Button,
@@ -128,6 +129,11 @@ export default function AdminPage() {
           </span>
           <h1 className="text-lg font-bold text-white">Panel admin</h1>
         </Card>
+        <Link to="/admin/questions">
+          <span className="inline-flex items-center gap-1 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-sm font-medium text-white backdrop-blur-xl transition hover:bg-white/25">
+            Banco de preguntas
+          </span>
+        </Link>
       </header>
 
       <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-4 py-8">

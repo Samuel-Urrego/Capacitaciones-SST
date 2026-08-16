@@ -13,7 +13,7 @@
     },
     {
       "id": 2,
-      "question": "Un contratista sufre una lesión mientras se desplaza desde su residencia hacia el lugar de trabajo en un vehículo particular que él mismo decidió utilizar. A partir exclusivamente de los criterios expuestos en la capacitación, ¿qué elemento resulta determinante para considerar el evento como accidente de trabajo?",
+      "question": "A partir de los criterios expuestos en la capacitación, ¿qué elemento resulta determinante para considerar que una lesión sufrida mientras el contratista se desplaza del trabajo a la casa es un accidente de trabajo?",
       "options": [
         "Que el desplazamiento haya ocurrido dentro del horario laboral",
         "Que el trabajador haya informado previamente la ruta al responsable del SG-SST",
@@ -108,7 +108,7 @@
         "El plazo siempre corresponde a dos días calendario, independientemente de los días hábiles",
         "El accidente solo debe reportarse cuando la lesión requiera hospitalización"
       ],
-      "correctIndex": 1
+      "correctIndex": 2
     },
     {
       "id": 11,
@@ -219,6 +219,17 @@
         "El Comité de Convivencia Laboral solo puede estar integrado por miembros del área de Seguridad y Salud en el Trabajo"
       ],
       "correctIndex": 1
+    },
+    {
+      "id": 21,
+      "question": "¿Dentro de los peligros físicos está?",
+      "options": [
+        "Ruido, vibración y temperaturas extremas",
+        "Biológico, químico y locativo",
+        "Eléctrico, alturas y espacios confinados",
+        "Virus, hongo y bacterias"
+      ],
+      "correctIndex": 0
     }
   ]
 }

@@ -10,6 +10,7 @@ const CoursePage = lazy(() => import('./pages/CoursePage'))
 const QuizPage = lazy(() => import('./pages/QuizPage'))
 const ResultsPage = lazy(() => import('./pages/ResultsPage'))
 const AdminPage = lazy(() => import('./pages/AdminPage'))
+const AdminQuestionsPage = lazy(() => import('./pages/AdminQuestionsPage'))
 
 function Loading() {
   return (
@@ -73,6 +74,14 @@ function App() {
               element={
                 <RequireAdmin>
                   <AdminPage />
+                </RequireAdmin>
+              }
+            />
+            <Route
+              path="/admin/questions"
+              element={
+                <RequireAdmin>
+                  <AdminQuestionsPage />
                 </RequireAdmin>
               }
             />
