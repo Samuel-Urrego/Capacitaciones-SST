@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabaseClient'
+import { useAuth } from '../lib/auth'
 import { Button, Card, IconChevronLeft, IconChevronRight, IconShield } from '../components/ui'
 
 const QUESTIONS_URL = '/questions.json'
 
 export default function QuizPage() {
   const navigate = useNavigate()
+  const { user } = useAuth()
 
   const [questions, setQuestions] = useState([])
   const [loading, setLoading] = useState(true)
@@ -13,6 +16,8 @@ export default function QuizPage() {
   const [index, setIndex] = useState(0)
   const [answers, setAnswers] = useState([])
   const [selected, setSelected] = useState(null)
+
+  const [submitting, setSubmitting] = useState(false)
 
   const courseCompleted = localStorage.getItem('course_completed') === 'true'
 
@@ -55,10 +60,60 @@ export default function QuizPage() {
     setSelected(answers[index - 1] ?? null)
   }, [answers, index])
 
-  const finish = useCallback(() => {
-    const score = answers.filter((a, i) => a === questions[i]?.correctIndex).length
-    navigate('/results', { state: { score, total: questions.length } })
-  }, [answers, questions, navigate])
+  const finish = useCallback(async () => {
+    if (submitting) return
+    setSubmitting(true)
+    try {
+      const score = answers.filter(
+        (a, i) => a === questions[i]?.correctIndex,
+      ).length
+      const total = questions.length
+      const percent = Math.round((score / total) * 100)
+
+      // El porcentaje de aprobación lo configura la admin (tabla app_settings)
+      const { data: settings } = await supabase
+        .from('app_settings')
+        .select('pass_threshold')
+        .eq('id', 1)
+        .maybeSingle()
+      const threshold = settings?.pass_threshold ?? 70
+      const passed = percent >= threshold
+
+      const { data: attempt, error: attemptError } = await supabase
+        .from('quiz_attempts')
+        .insert({
+          user_id: user.id,
+          score,
+          total,
+          percent,
+          passed,
+        })
+        .select()
+        .single()
+      if (attemptError) throw attemptError
+
+      const answerRows = questions
+        .map((q, i) => ({
+          attempt_id: attempt.id,
+          question_id: q.id,
+          selected_option: answers[i],
+          correct: answers[i] === q.correctIndex,
+        }))
+        .filter((row) => row.selected_option !== undefined)
+
+      const { error: answersError } = await supabase
+        .from('quiz_answers')
+        .insert(answerRows)
+      if (answersError) throw answersError
+
+      navigate('/results', {
+        state: { score, total, percent, passed, threshold },
+      })
+    } catch (err) {
+      setError(err.message)
+      setSubmitting(false)
+    }
+  }, [answers, questions, user, navigate, submitting])
 
   if (!courseCompleted) {
     return <Navigate to="/course" replace />
@@ -148,10 +203,10 @@ export default function QuizPage() {
                 {index === questions.length - 1 ? (
                   <Button
                     onClick={finish}
-                    disabled={selected === null}
+                    disabled={selected === null || submitting}
                     className="px-8 py-3"
                   >
-                    Ver resultado
+                    {submitting ? 'Guardando…' : 'Ver resultado'}
                   </Button>
                 ) : (
                   <Button
@@ -167,6 +222,11 @@ export default function QuizPage() {
               {selected === null && (
                 <p className="mt-4 text-center text-sm text-white/60">
                   Elegí una opción para poder continuar
+                </p>
+              )}
+              {error && (
+                <p className="mt-4 rounded-xl border border-red-300/30 bg-red-500/20 px-4 py-2.5 text-center text-sm text-red-100">
+                  No se pudo guardar el resultado: {error}
                 </p>
               )}
             </div>

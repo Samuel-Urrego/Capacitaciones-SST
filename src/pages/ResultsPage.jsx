@@ -1,13 +1,10 @@
 import { useLocation } from 'react-router-dom'
 import { Card, IconCheck, IconShield } from '../components/ui'
 
-const PASS_THRESHOLD = 70 // La admin lo va a poder configurar desde Supabase
-
 export default function ResultsPage() {
   const location = useLocation()
-  const { score = 0, total = 0 } = location.state || {}
-  const percent = total > 0 ? Math.round((score / total) * 100) : 0
-  const passed = percent >= PASS_THRESHOLD
+  const { score = 0, total = 0, percent = 0, passed = false, threshold = 70 } =
+    location.state || {}
 
   const radius = 64
   const circumference = 2 * Math.PI * radius
@@ -73,7 +70,7 @@ export default function ResultsPage() {
             Respondiste correctamente {score} de {total} preguntas
           </p>
           <p className="mt-2 text-xs text-white/50">
-            Mínimo para aprobar: {PASS_THRESHOLD}%
+            Mínimo para aprobar: {threshold}%
           </p>
         </Card>
       </main>
