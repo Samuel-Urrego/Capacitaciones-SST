@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import GlassBackground from './components/GlassBackground'
 
 const LandingPage = lazy(() => import('./pages/LandingPage'))
 const LoginPage = lazy(() => import('./pages/LoginPage'))
@@ -10,8 +11,8 @@ const AdminPage = lazy(() => import('./pages/AdminPage'))
 
 function Loading() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-100">
-      <p className="text-slate-500">Cargando…</p>
+    <div className="flex min-h-screen items-center justify-center">
+      <p className="text-white/80">Cargando…</p>
     </div>
   )
 }
@@ -19,6 +20,7 @@ function Loading() {
 function App() {
   return (
     <BrowserRouter>
+      <GlassBackground />
       <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<LandingPage />} />

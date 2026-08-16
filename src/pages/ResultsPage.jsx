@@ -14,13 +14,13 @@ export default function ResultsPage() {
   const offset = circumference - (percent / 100) * circumference
 
   return (
-    <div className="flex min-h-screen flex-col bg-surface">
+    <div className="flex min-h-screen flex-col">
       <header className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-4 pt-6">
         <Card className="flex items-center gap-3 px-5 py-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-primary shadow-neumorph-sm">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-xl">
             <IconShield className="h-5 w-5" />
           </span>
-          <h1 className="text-lg font-bold text-primary">Resultado</h1>
+          <h1 className="text-lg font-bold text-white">Resultado</h1>
         </Card>
       </header>
 
@@ -34,7 +34,7 @@ export default function ResultsPage() {
                 r={radius}
                 fill="none"
                 strokeWidth="14"
-                className="stroke-slate-200/80"
+                className="stroke-white/20"
               />
               <circle
                 cx="80"
@@ -46,21 +46,21 @@ export default function ResultsPage() {
                 strokeDasharray={circumference}
                 strokeDashoffset={offset}
                 className={`transition-all duration-700 ${
-                  passed ? 'stroke-emerald-500' : 'stroke-primary'
+                  passed ? 'stroke-emerald-300' : 'stroke-white'
                 }`}
               />
             </svg>
             <div className="absolute flex flex-col items-center">
-              <span className="text-4xl font-bold text-primary">{percent}%</span>
-              <span className="mt-1 text-xs uppercase tracking-widest text-slate-400">
+              <span className="text-4xl font-bold text-white">{percent}%</span>
+              <span className="mt-1 text-xs uppercase tracking-widest text-white/60">
                 tu puntaje
               </span>
             </div>
           </div>
 
           <div
-            className={`mx-auto mt-8 flex w-fit items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold shadow-neumorph-sm ${
-              passed ? 'text-emerald-600' : 'text-primary'
+            className={`mx-auto mt-8 flex w-fit items-center gap-2 rounded-full border border-white/25 px-5 py-2.5 text-sm font-semibold backdrop-blur-xl ${
+              passed ? 'bg-emerald-400/20 text-emerald-100' : 'bg-white/15 text-white'
             }`}
           >
             <IconCheck className="h-4 w-4" />
@@ -69,10 +69,10 @@ export default function ResultsPage() {
               : 'No llegaste al mínimo para aprobar'}
           </div>
 
-          <p className="mt-6 text-sm text-slate-500">
+          <p className="mt-6 text-sm text-white/70">
             Respondiste correctamente {score} de {total} preguntas
           </p>
-          <p className="mt-2 text-xs text-slate-400">
+          <p className="mt-2 text-xs text-white/50">
             Mínimo para aprobar: {PASS_THRESHOLD}%
           </p>
         </Card>

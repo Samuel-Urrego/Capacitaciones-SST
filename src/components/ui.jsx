@@ -1,8 +1,10 @@
-/* Shared Neumorphism UI primitives for the SST training platform. */
+/* Shared Glassmorphism UI primitives for the SST training platform. */
 
 export function Card({ className = '', children }) {
   return (
-    <div className={`rounded-3xl bg-surface shadow-neumorph ${className}`}>
+    <div
+      className={`rounded-3xl border border-white/20 bg-white/10 shadow-xl shadow-purple-950/20 backdrop-blur-xl ${className}`}
+    >
       {children}
     </div>
   )
@@ -15,10 +17,12 @@ export function Button({
   ...props
 }) {
   const base =
-    'inline-flex items-center justify-center gap-2 rounded-2xl font-semibold transition-all duration-150 active:translate-y-0.5 active:shadow-neumorph-inset disabled:cursor-not-allowed disabled:opacity-40 disabled:active:translate-y-0 disabled:active:shadow-none'
+    'inline-flex items-center justify-center gap-2 rounded-2xl font-semibold transition-all duration-150 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-40'
   const variants = {
-    primary: 'bg-primary text-white shadow-neumorph hover:brightness-110',
-    neutral: 'bg-surface text-primary shadow-neumorph hover:brightness-[1.03]',
+    primary:
+      'bg-white text-primary shadow-lg shadow-purple-950/30 hover:bg-white/90',
+    neutral:
+      'border border-white/30 bg-white/15 text-white backdrop-blur-xl hover:bg-white/25',
   }
   return (
     <button
@@ -32,7 +36,7 @@ export function Button({
 export function Input({ className = '', ...props }) {
   return (
     <input
-      className={`w-full rounded-2xl bg-surface px-4 py-3 text-slate-700 shadow-neumorph-inset outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-primary/40 ${className}`}
+      className={`w-full rounded-2xl border border-white/30 bg-white/15 px-4 py-3 text-white shadow-inner outline-none backdrop-blur-xl placeholder:text-white/50 focus:border-white/60 focus:bg-white/20 ${className}`}
       {...props}
     />
   )
@@ -42,10 +46,10 @@ export function Pill({ active = false, className = '', ...props }) {
   return (
     <button
       type="button"
-      className={`inline-flex cursor-pointer items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-medium transition-all duration-150 ${
+      className={`inline-flex cursor-pointer items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-150 ${
         active
-          ? 'text-primary shadow-neumorph-inset'
-          : 'text-slate-600 shadow-neumorph-sm hover:text-primary'
+          ? 'bg-white text-primary shadow-lg shadow-purple-950/30'
+          : 'border border-white/25 bg-white/10 text-white/80 backdrop-blur-xl hover:bg-white/20 hover:text-white'
       } ${className}`}
       {...props}
     />

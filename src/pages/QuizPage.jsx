@@ -31,7 +31,7 @@ export default function QuizPage() {
         setError(err.message)
         setLoading(false)
       })
-  }, [])
+  }, [courseCompleted])
 
   const question = questions[index]
 
@@ -60,17 +60,21 @@ export default function QuizPage() {
     navigate('/results', { state: { score, total: questions.length } })
   }, [answers, questions, navigate])
 
+  if (!courseCompleted) {
+    return <Navigate to="/course" replace />
+  }
+
   return (
-    <div className="flex min-h-screen flex-col bg-surface">
+    <div className="flex min-h-screen flex-col">
       <header className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-4 pt-6">
         <Card className="flex items-center gap-3 px-5 py-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-primary shadow-neumorph-sm">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-xl">
             <IconShield className="h-5 w-5" />
           </span>
-          <h1 className="text-lg font-bold text-primary">Quiz</h1>
+          <h1 className="text-lg font-bold text-white">Quiz</h1>
         </Card>
         {!loading && !error && (
-          <span className="rounded-full bg-surface px-4 py-2 text-sm font-medium text-slate-500 shadow-neumorph-sm">
+          <span className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-xl">
             Pregunta {index + 1} de {questions.length}
           </span>
         )}
@@ -79,47 +83,45 @@ export default function QuizPage() {
       <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-8">
         {error ? (
           <Card className="mt-10 w-full p-8 text-center">
-            <p className="font-semibold text-primary">No se pudo cargar el quiz</p>
-            <p className="mt-1 text-sm text-slate-500">{error}</p>
-            <p className="mt-3 text-sm text-slate-400">
+            <p className="font-semibold text-white">No se pudo cargar el quiz</p>
+            <p className="mt-1 text-sm text-white/70">{error}</p>
+            <p className="mt-3 text-sm text-white/50">
               Verificá que el archivo esté en{' '}
               <code className="font-mono">public/questions.json</code>.
             </p>
           </Card>
         ) : loading ? (
           <Card className="mt-10 w-full p-10 text-center">
-            <p className="text-lg font-semibold text-primary">Cargando preguntas…</p>
+            <p className="text-lg font-semibold text-white">
+              Cargando preguntas…
+            </p>
           </Card>
         ) : (
           <>
             <Card className="p-8">
-              <h2 className="text-xl font-bold text-slate-700">
+              <h2 className="text-xl font-bold text-white">
                 {question.question}
               </h2>
 
               <div className="mt-6 space-y-3">
                 {question.options.map((option, optionIndex) => {
                   const isSelected = selected === optionIndex
-  if (!courseCompleted) {
-    return <Navigate to="/course" replace />
-  }
-
-  return (
+                  return (
                     <button
                       key={optionIndex}
                       type="button"
                       onClick={() => selectOption(optionIndex)}
-                      className={`flex w-full items-center gap-4 rounded-2xl bg-surface px-5 py-4 text-left transition-all duration-150 ${
+                      className={`flex w-full items-center gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-150 ${
                         isSelected
-                          ? 'text-primary shadow-neumorph-inset'
-                          : 'text-slate-600 shadow-neumorph-sm hover:text-primary'
+                          ? 'border-white/60 bg-white text-primary shadow-lg shadow-purple-950/30'
+                          : 'border-white/25 bg-white/10 text-white/80 backdrop-blur-xl hover:bg-white/20 hover:text-white'
                       }`}
                     >
                       <span
                         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
                           isSelected
-                            ? 'bg-primary text-white shadow-neumorph-sm'
-                            : 'bg-surface text-primary shadow-neumorph-sm'
+                            ? 'bg-primary text-white'
+                            : 'border border-white/30 bg-white/15 text-white'
                         }`}
                       >
                         {String.fromCharCode(65 + optionIndex)}

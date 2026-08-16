@@ -129,15 +129,15 @@ export default function CoursePage() {
   }, [])
 
   return (
-    <div className="flex min-h-screen flex-col bg-surface">
+    <div className="flex min-h-screen flex-col">
       <header className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-4 pt-6">
         <Card className="flex items-center gap-3 px-5 py-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-surface text-primary shadow-neumorph-sm">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/25 bg-white/15 text-white backdrop-blur-xl">
             <IconShield className="h-5 w-5" />
           </span>
-          <h1 className="text-lg font-bold text-primary">Capacitación SST</h1>
+          <h1 className="text-lg font-bold text-white">Capacitación SST</h1>
         </Card>
-        <span className="rounded-full bg-surface px-4 py-2 text-sm font-medium text-slate-500 shadow-neumorph-sm">
+        <span className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-xl">
           Inducción en SST
         </span>
       </header>
@@ -145,11 +145,11 @@ export default function CoursePage() {
       <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col items-center px-4 py-6">
         {error ? (
           <Card className="mt-10 w-full max-w-md p-8 text-center">
-            <p className="font-semibold text-primary">
+            <p className="font-semibold text-white">
               No se pudo abrir la capacitación
             </p>
-            <p className="mt-1 text-sm text-slate-500">{error}</p>
-            <p className="mt-3 text-sm text-slate-400">
+            <p className="mt-1 text-sm text-white/70">{error}</p>
+            <p className="mt-3 text-sm text-white/50">
               Verificá que el archivo esté en{' '}
               <code className="font-mono">public/course.pdf</code> (exportado
               desde PowerPoint: Archivo → Guardar como → PDF).
@@ -157,12 +157,12 @@ export default function CoursePage() {
           </Card>
         ) : loading ? (
           <Card className="mt-10 w-full max-w-md p-10 text-center">
-            <p className="text-lg font-semibold text-primary">
+            <p className="text-lg font-semibold text-white">
               Preparando el libro…
             </p>
-            <p className="mt-2 text-sm text-slate-500">
-              Renderizando página {renderProgress} de{' '}
-              {total || '…'} — un momentito
+            <p className="mt-2 text-sm text-white/70">
+              Renderizando página {renderProgress} de {total || '…'} — un
+              momentito
             </p>
           </Card>
         ) : (
@@ -218,11 +218,11 @@ export default function CoursePage() {
               </Button>
 
               <div className="flex flex-col items-center gap-3">
-                <div className="flex h-16 w-24 flex-col items-center justify-center rounded-2xl bg-surface shadow-neumorph-sm">
-                  <span className="text-xl font-bold leading-none text-primary">
+                <div className="flex h-16 w-24 flex-col items-center justify-center rounded-2xl border border-white/25 bg-white/10 backdrop-blur-xl">
+                  <span className="text-xl font-bold leading-none text-white">
                     {current + 1}
                   </span>
-                  <span className="mt-1 text-[10px] uppercase tracking-widest text-slate-400">
+                  <span className="mt-1 text-[10px] uppercase tracking-widest text-white/50">
                     de {total}
                   </span>
                 </div>
@@ -248,7 +248,7 @@ export default function CoursePage() {
             </div>
 
             <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-              <label className="flex cursor-pointer items-center gap-2 rounded-full bg-surface px-4 py-2 text-sm font-medium text-slate-600 shadow-neumorph-sm transition hover:text-primary">
+              <label className="flex cursor-pointer items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-xl transition hover:text-white">
                 <input
                   type="checkbox"
                   checked={autoplay}
@@ -256,7 +256,7 @@ export default function CoursePage() {
                     setAutoplay(e.target.checked)
                     if (!e.target.checked) stopAudio()
                   }}
-                  className="h-4 w-4 accent-primary"
+                  className="h-4 w-4 accent-white"
                 />
                 Leer página automáticamente
               </label>
